@@ -26,7 +26,7 @@ public class BoardService {
 		
 		ArrayList<Board> list = new BoardDao().selectList(conn, pi);
 		
-		close(conn);
+		close(conn);                                                                                                                     
 		
 		return list;
 		
