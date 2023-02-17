@@ -11,7 +11,7 @@
 	</entry>
 	
 	<entry key="insertMember">
-		INSERT INTO MEMBER(USER_NO,
+		INSERT INTO MEMBER(USER_NO ,
 							USER_ID,
 							USER_PWD,
 							USER_NAME,
@@ -19,7 +19,7 @@
 							EMAIL,
 							ADDRESS,
 							INTEREST)
-					VALUES(SEQ_UNO.NEXTVAL,
+					VALUES (SEQ_UNO.NEXTVAL,
 							?,
 							?,
 							?,
@@ -29,31 +29,48 @@
 							?
 					)
 	</entry>
+	
 	<entry key="updateMember">
 		UPDATE MEMBER
-		SET USER_NAME = ?,
-			PHONE = ?,
-			EMAIL = ?,
-			ADDRESS = ?,
-			INTEREST = ?,
-			MODIFY_DATE = SYSDATE
+		SET USER_NAME = ? ,
+		    PHONE = ? ,
+		    EMAIL = ? ,
+		    ADDRESS = ? ,
+		    INTEREST = ?,
+		    MODIFY_DATE = SYSDATE
 		WHERE USER_ID = ?
 	</entry>
+	
 	<entry key="selectMember">
-		SELECT * FROM MEMBER
-		WHERE 	USER_ID = ?
-			AND STATUS = 'Y'	
+		SELECT * 
+		FROM MEMBER
+		WHERE USER_ID = ?
+		  AND STATUS = 'Y'
 	</entry>
+	
 	<entry key="updatePwdMember">
 		UPDATE MEMBER SET
 		USER_PWD = ?,
 		MODIFY_DATE = SYSDATE
 		WHERE USER_ID = ? AND USER_PWD = ?
 	</entry>
+	
 	<entry key="deleteMember">
 		UPDATE MEMBER SET
-		STATUS = 'N',
+		STATUS = 'N' ,
 		MODIFY_DATE = SYSDATE
-		WHERE USER_ID = ? AND USER_PWD = ?
+		WHERE USER_ID = ?
+		  AND USER_PWD = ?
 	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </properties>

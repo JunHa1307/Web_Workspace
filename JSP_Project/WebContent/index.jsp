@@ -24,6 +24,7 @@
    * 사진게시판서비스 -  리스트조회(R) / 상세조회(R) / 작성(C) - (다중첨부파일 업로드)
    
  -->
+ 
  <%@ include file="views/common/menubar.jsp" %>
 
 

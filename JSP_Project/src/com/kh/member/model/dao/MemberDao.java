@@ -103,9 +103,8 @@ public class MemberDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
@@ -120,6 +119,7 @@ public class MemberDao {
 		
 		String sql = prop.getProperty("updateMember");
 		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -131,25 +131,25 @@ public class MemberDao {
 			pstmt.setString(6, m.getUserId());
 			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			JDBCTemplate.close(pstmt);
 		}
 		
 		return result;
 	}
 	
-	public Member selectMember(Connection conn,String userId) {
+	public Member selectMember(Connection conn, String userId) {
 		
-		// Select문 => ResultSet객체 (id값은 unique제약조건이 걸려있어서 한 행만 조회)
+		// Select문 => ResultSet객체 (id값은 unique제약조건이 걸려있어서 한행만 조회)
 		
 		Member m = null;
 		
 		PreparedStatement pstmt = null;
 		
-		ResultSet rset = null;
+		ResultSet rset =null;
 		
 		String sql = prop.getProperty("selectMember");
 		
@@ -175,22 +175,26 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			// 생성된 순서의 역순으로 닫아주기
+		} finally {
+			//생성된 순서의 역순으로 닫아주기
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
+		
+		
+		
 		return m;
 	}
 	
 	public int updatePwdMember(Connection conn, String userId, String userPwd, String updatePwd) {
 		
-		// update문 => 처리된 행의 갯수
+		// UPDATE문= > 처리된 행의 갯수
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("updatePwdMember");
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -200,18 +204,19 @@ public class MemberDao {
 			pstmt.setString(3, userPwd);
 			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			JDBCTemplate.close(pstmt);
-		} 
+		}
 		
 		return result;
 	}
 	
-public int deleteMember(Connection conn, String userId, String userPwd) {
-		 
+	
+	public int deleteMember(Connection conn, String userId, String userPwd) {
+		
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -225,15 +230,19 @@ public int deleteMember(Connection conn, String userId, String userPwd) {
 			pstmt.setString(2, userPwd);
 			
 			result = pstmt.executeUpdate();
+			
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			JDBCTemplate.close(pstmt);
-		} 
+		}
 		
 		return result;
 	}
+	
+	
+	
 	
 	
 	

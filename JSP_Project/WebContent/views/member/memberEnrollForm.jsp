@@ -92,9 +92,6 @@
 	            	<button type="reset">초기화</button>
 	            </div>
 	            <br><br>
-	            
-	            
-	            
 		</form>
 	
 	</div>

@@ -1,7 +1,6 @@
 package com.kh.notice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,19 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.notice.model.service.NoticeService;
-import com.kh.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeListController
+ * Servlet implementation class NoticeDeleteController
  */
-@WebServlet("/list.no")
-public class NoticeListController extends HttpServlet {
+@WebServlet("/delete.no")
+public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListController() {
+    public NoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +30,25 @@ public class NoticeListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 1) 공지사항 전체 리스트 조회 한 후 
-		ArrayList<Notice> list = new NoticeService().selectNoticeList();
-		// SELECT * FROM NOTICE WHERE STATUS = 'Y'
-		// System.out.println(list);
+		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		// 2) 조회결과를 담아서 응답페이지로 포워딩
-		request.setAttribute("list",list);
+		/*
+		 * UPDATE NOTICE
+		 * SET STATUS = 'N'
+		 * WHERE NOTICE_NO = ${nno}
+		 * 
+		 */
 		
-		request.getRequestDispatcher("views/notice/noticeListView.jsp").forward(request, response);
+		int result = new NoticeService().deleteNotice(nno);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "성공적으로 공지사항이 삭제되었습니다.");
+			
+			response.sendRedirect(request.getContextPath() + "/list.no");
+		}else {
+			request.setAttribute("errorMsg", "공지사항 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
 	}
 

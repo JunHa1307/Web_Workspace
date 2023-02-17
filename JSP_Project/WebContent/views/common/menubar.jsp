@@ -57,6 +57,7 @@
 	.menu a:hover{
 		background:darkgray;
 	}
+	
 	.outer{
 		background: black;
 		color:white;
@@ -64,6 +65,7 @@
 		margin:auto;
 		margin-top:50px;
 	}
+	
 </style>
 </head>
 <body>
@@ -110,18 +112,7 @@
 				
 				// 단순한 정적인 페이지 이동요청이라고해도 반드시 servlet을 거쳐갈것 => url에 서블릿 매핑값만 노출되도록 하기
 				location.href = "<%= contextPath %>/enrollForm.me";
-			}	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			}		
 		</script>
 		<% } else { %>
 			<!-- 로그인 성공 후 -->

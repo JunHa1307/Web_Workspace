@@ -44,6 +44,8 @@ public class JDBCTemplate {
 					prop.getProperty("username"),
 					prop.getProperty("password")
 					);
+			//3) 자동커밋 설정 해제
+			conn.setAutoCommit(false);
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -59,59 +61,55 @@ public class JDBCTemplate {
 		
 		try {
 			if(conn != null && !conn.isClosed()) {
-				conn.commit();
+				conn.commit();	
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-	}
+		}		
+	}	
 	// 3. 전달받은 Connection 객체를 가지고 rollback해주는 메소드
 	public static void rollback(Connection conn) {
 		
 		try {
 			if(conn != null && !conn.isClosed()) {
-				conn.rollback();
+				conn.rollback();	
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	// 4. Connection객체를 반납해주는 메소드
 	public static void close(Connection conn) {
+		
 		try {
 			if(conn != null && !conn.isClosed()) {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 	}
 	// 5. Statement객체를 반납시켜주는 메소드
 	public static void close(Statement stmt) {
+		
 		try {
 			if(stmt != null && !stmt.isClosed()) {
 				stmt.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 	}
 	// 6. ResultSet객체를 반납시켜주는 메소드
 	public static void close(ResultSet rset) {
+		
 		try {
 			if(rset != null && !rset.isClosed()) {
 				rset.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 	}
 	
 	
