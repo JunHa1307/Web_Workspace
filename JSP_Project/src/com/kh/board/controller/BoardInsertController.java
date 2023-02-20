@@ -58,7 +58,7 @@ public class BoardInsertController extends HttpServlet {
 //		String title = request.getParameter("title");
 		
 		/*
-		 *  폼 전송시 일반 방식이 아니라 multipart/form-dataㅀ 전송하는 경우
+		 *  폼 전송시 일반 방식이 아니라 multipart/form-data를 전송하는 경우
 		 *  request로 부터 값을 뽑아낼 수 없다
 		 *  
 		 *  multipart라는 객체에 값을 이관시켜서 다뤄줘야함

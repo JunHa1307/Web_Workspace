@@ -41,4 +41,26 @@
 		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH)
 		VALUES (SEQ_FNO.NEXTVAL, SEQ_BNO.CURRVAL, ?, ? ,?)
 	</entry>
+	<entry key="increaseCount">
+		UPDATE BOARD 
+		SET COUNT = COUNT +1
+		WHERE BOARD_NO = ?
+		  AND STATUS = 'Y'
+	</entry>
+	<entry key="selectBoard">
+		SELECT BOARD_NO ,
+			   BOARD_TYPE,
+			   C.CATEGORY_NAME,
+		       BOARD_TITLE,
+		       BOARD_CONTENT,
+		       USER_ID,
+		       COUNT,
+		       CREATE_DATE,
+		       STATUS
+		FROM BOARD B
+		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
+		JOIN CATEGORY C ON (B.CATEGORY_NO = C.CATEGORY_NO)
+		WHERE BOARD_NO = ?
+		  AND B.STATUS = 'Y'
+	</entry>
 </properties>

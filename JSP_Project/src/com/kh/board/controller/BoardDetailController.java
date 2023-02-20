@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
+import com.kh.notice.model.service.NoticeService;
+import com.kh.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class BoardDetailController
@@ -29,11 +32,21 @@ public class BoardDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int no = Integer.parseInt(request.getParameter("currentDetail"));
+		int bno = Integer.parseInt(request.getParameter("currentDetail"));
 		
+		int result = new BoardService().increaseCount(bno);
 		
-		
+		if(result > 0) {
+			
+			Board b = new BoardService().selectBoard(bno);
+			request.setAttribute("b", b);
 	
+			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
+			
+		} else { 
+			request.setAttribute("errorMsg", "게시글 조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

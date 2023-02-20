@@ -1,5 +1,9 @@
+<%@ page import="com.kh.board.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Board b = (Board) request.getAttribute("b"); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,14 +32,14 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>user01</td>
+				<td><%= b.toString() %></td>
 				<td>작성일</td>
-				<td>2023-02-20</td>
+				<td><%= b.toString() %></td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td colspan="3">
-					<p style="height:200px">글내용</p>
+					<p style="height:200px"><%= b.toString() %></p>	
 				</td>
 			</tr>
 			<tr>
@@ -43,7 +47,7 @@
 				<td colspan="3">
 					첨부파일이 없을경우 : 첨부파일이 없습니다로 표시
 					첨부파일이 있을경우 :
-					<a download="파일 원본명" href="해당파일이 존재하는 경로">파일원본명</a>
+					<a download="파일명" href="해당파일이 존재하는 경로">파일원본명</a>
 				</td>
 			</tr>
 		</table>

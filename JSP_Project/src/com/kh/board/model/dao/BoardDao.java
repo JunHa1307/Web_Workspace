@@ -17,6 +17,7 @@ import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Category;
 import com.kh.common.model.vo.PageInfo;
+import com.kh.notice.model.vo.Notice;
 
 public class BoardDao {
 	
@@ -189,5 +190,78 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	public int increaseCount(Connection conn, int bno) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("increaseCount");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	public Board selectBoard(Connection conn, int bno) {
+		
+		
+		Board b = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Board(
+						rset.getInt("BOARD_NO"),
+						rset.getInt("BOARD_TYPE"),
+						rset.getString("CATEGORY_NAME"),
+						rset.getString("BOARD_TITLE"),
+						rset.getString("BOARD_CONTENT"),
+						rset.getString("USER_ID"),
+						rset.getInt("COUNT"),
+						rset.getDate("CREATE_DATE"),
+						rset.getString("STATUS")
+						);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return b;
+		
+		
 	}
 }
