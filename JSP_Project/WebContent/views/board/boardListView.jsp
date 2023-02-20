@@ -36,7 +36,7 @@
 		<!-- 글등록버튼(로그인한 회원만 보이도록) -->
 		<% if(loginUser != null){ %>
 			<div align="right" style="width:850px">
-				<a href="<%=contextPath %>/emrollForm.bo" class="btn btn-secondary">글작성</a>
+				<a href="<%=contextPath %>/insert.bo" class="btn btn-secondary">글작성</a>
 			</div>
 		<%} %>
 		<table class="list-area" align="center">
@@ -57,7 +57,7 @@
 				</tr>
 			<%} else{ %>
 				<% for(Board b : list){ %>
-				<tr>
+				<tr onclick="location.href='<%= contextPath %>/detail.bo?currentDetail=<%= b.getBoardNo() %>';">
 					<td><%= b.getBoardNo() %></td>
 					<td><%= b.getCategory() %></td>
 					<td><%= b.getBoardTitle() %></td>
@@ -133,7 +133,7 @@
 			<button>10</button>
  -->			
 			<%if(currentPage != maxPage) {%>
-				<button onclick="location.href='<%= contextPath %>/list.bo?currentPage=<%=currentPage +1%>';">&gt;</button>
+				<button onclick="location.href='<%= contextPath %>/list.bo?currentPage=<%=currentPage +1%>	';">&gt;</button>
 			<%} %>
 		</div>
 	</div>
