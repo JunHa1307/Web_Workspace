@@ -120,7 +120,7 @@ public class BoardService {
 			if(at.getFileNo() != 0) {
 				result2 = new BoardDao().updateAttachment(conn,at);
 			}else {
-				result2 = new BoardDao().insertAttachment(conn, at);
+				result2 = new BoardDao().reInsertAttachment(conn, at, b);
 			}
 		}
 		
