@@ -49,18 +49,42 @@
 	</entry>
 	<entry key="selectBoard">
 		SELECT BOARD_NO ,
-			   BOARD_TYPE,
-			   C.CATEGORY_NAME,
+			   CATEGORY_NAME,
 		       BOARD_TITLE,
 		       BOARD_CONTENT,
 		       USER_ID,
-		       COUNT,
-		       CREATE_DATE,
-		       STATUS
+		       CREATE_DATE
 		FROM BOARD B
+		JOIN CATEGORY USING (CATEGORY_NO)
 		JOIN MEMBER M ON (BOARD_WRITER = USER_NO)
-		JOIN CATEGORY C ON (B.CATEGORY_NO = C.CATEGORY_NO)
 		WHERE BOARD_NO = ?
 		  AND B.STATUS = 'Y'
+	</entry>
+	<entry key="selectAttachment">
+		SELECT 
+			FILE_NO,
+			ORIGIN_NAME,
+			CHANGE_NAME,
+			FILE_PATH,
+			NVL(FILE_LEVEL , 0) AS FILE_LEVEL
+		FROM ATTACHMENT
+		WHERE REF_BNO = ?
+		ORDER BY FILE_LEVEL
+	</entry>
+	<entry key="updateBoard">
+		UPDATE BOARD
+		SET CATEGORY_NO = ?,
+			BOARD_TITLE = ?,
+			BOARD_CONTENT = ?
+		WHERE BOARD_NO = ?
+			AND STATUS = 'Y'
+	</entry>
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ?,
+		 	CHANGE_NAME = ?,
+		 	 FILE_PATH = ?
+		 WHERE FILE_NO = ?
+		 	AND STATUS = 'Y'
 	</entry>
 </properties>

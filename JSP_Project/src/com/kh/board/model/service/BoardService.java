@@ -1,6 +1,9 @@
 package com.kh.board.model.service;
 
-import static com.kh.common.JDBCTemplate.*;
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -10,8 +13,6 @@ import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Category;
 import com.kh.common.model.vo.PageInfo;
-import com.kh.notice.model.dao.NoticeDao;
-import com.kh.notice.model.vo.Notice;
 
 public class BoardService {
 	
@@ -73,11 +74,11 @@ public class BoardService {
 		
 		return result1 * result2; // 혹시 하나라도 실패해서 0이 반환될경우 실패값을 반환하기위해 곱셈결과를 리턴
 	}
-	public int increaseCount(int bno) {
+	public int increaseCount(int boardNo) {
 		
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().increaseCount(conn, bno);
+		int result = new BoardDao().increaseCount(conn, boardNo);
 		
 		if(result > 0) {
 			commit(conn);
@@ -89,14 +90,46 @@ public class BoardService {
 		
 		return result;		
 	}
-	public Board selectBoard(int bno) {
+	public Board selectBoard(int boardNo) {
 		
 		Connection conn = getConnection();
 		
-		Board b = new BoardDao().selectBoard(conn , bno);
+		Board b = new BoardDao().selectBoard(conn , boardNo);
 		
 		close(conn);
 		
 		return b;
+	}
+	public Attachment selectAttachment(int boardNo) {
+		Connection conn = getConnection();
+		
+		Attachment at = new BoardDao().selectAttachment(conn,boardNo);
+		
+		close(conn);
+		
+		return at;
+	}
+	public int updateBoard(Board b,Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = new BoardDao().updateBoard(conn,b);
+		
+		int result2 = 1;
+		
+		if(at != null) {
+			if(at.getFileNo() != 0) {
+				result2 = new BoardDao().updateAttachment(conn,at);
+			}else {
+				result2 = new BoardDao().insertAttachment(conn, at);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
 	}
 }
