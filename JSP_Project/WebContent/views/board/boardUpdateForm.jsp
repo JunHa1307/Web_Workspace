@@ -48,6 +48,22 @@
 						<%} %>
 						<!-- 내가 선택한 카테고리가 자동으로 선택되어있도록 작업해주기(js활용) -->
 						</select>
+						
+						<%-- <script>
+							$(function(){
+								$("update-form option").each(function(){
+									/*
+										현재 반복을 진행 중인 option 태그의 text값과 
+										db에서 가져온 cateforyname값이 일치하는 경우 선택되도록
+									*/
+									if($(this).text() == "<%= b.getCategory()%>"){
+										// 일치하는 경우에만 option태그를 선택상태로 변경
+										$(this).attr("selected",true);
+									}
+									
+								});
+							});
+						</script> --%>
 					</td>
 				</tr>
 				<tr>
@@ -57,7 +73,7 @@
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea name="content" rows="10" value="<%= b.getBoardContent() %>" required></textarea>
+						<textarea name="content" rows="10" value="<%= b.getBoardContent() %>" required><%= b.getBoardContent() %></textarea>
 					</td>
 				</tr>
 				<tr>

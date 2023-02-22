@@ -64,9 +64,18 @@
 			<!-- 로그인한 사용자가 해당 게시글의 작성자인 경우 -->
 			<% if(loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())){ %>
 				<a href="<%=contextPath %>/update.bo?bno=<%= b.getBoardNo() %>" class="btn btn-warning btn-sm">수정하기</a>
-				<a href="<%= contextPath %>/delete.bo?bno=<%= b.getBoardNo() %>" class="btn btn-danger btn-sm">삭제하기</a>
+				<button onclick="deleteBoard();" class="btn btn-danger btn-sm">삭제하기</button>
 			<%} %>
 		</div>
+		<script>
+			function deleteBoard(){
+				if(!confirm("정말 삭제하시겠습니까?")){
+					return;
+				}else{
+					location.href = "<%= contextPath %>/delete.bo?bno=<%= b.getBoardNo() %>"
+				}
+			}
+		</script>
 		<br>
 		<!-- 댓글기능 화면구현만 해두기. 이 아래는 작업 X  -->
 		

@@ -62,21 +62,24 @@ public class BoardUpdateController extends HttpServlet {
 				
 		// 1. 전송된 데이터 input file이 포함된 경우 enctype=multipart/formdata로 전송했을 것
 		if(ServletFileUpload.isMultipartContent(request)) {
+			
 			// 1_1 전송 파일 용량 제한 (10MB)
 			int maxSize = 1024*1024*10;
 			// 1_2 전달된 파일을 저장시킬 서버 폴더의 물리적인 경로 알아내기
+			
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/board_upfiles/");
 			// 2   전달된 파일명 수정작업 후 서버에 업로드
-			// 3   본격적으로 sql문 실행시 필요한 값을 세팅
-			MultipartRequest multi = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
-			// 새롭게 전달된 첨부파일이 있는 경우에만 at변수에 필요한 값을 추가할 것
 			
+			MultipartRequest multi = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
+
+			// 3   본격적으로 sql문 실행시 필요한 값을 세팅			
 			Board b = new Board();
-			b.setBoardNo( Integer.parseInt(multi.getParameter("bno")) );
+			b.setBoardNo( Integer.parseInt(multi.getParameter("bno")));//.trim()으로 좌우 공백 제거
 			b.setCategory(multi.getParameter("category"));
 			b.setBoardTitle(multi.getParameter("title"));
 			b.setBoardContent(multi.getParameter("content"));
 			
+			// 새롭게 전달된 첨부파일이 있는 경우에만 at변수에 필요한 값을 추가할 것
 			Attachment at = null;
 			if(multi.getOriginalFileName("upfile") != null) {
 				at = new Attachment();
