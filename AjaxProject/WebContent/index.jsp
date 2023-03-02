@@ -68,7 +68,7 @@
 			xhr.open("get","<%= contextPath %>/ajaxTest.do?id=admin");
 			
 			// 3. 요청에 대한 서버 응답을 처리할 함수를 지정
-			// xhr객체의 onreadystatechange 속성에 이벤트핸글러를 추가
+			// xhr객체의 onreadystatechange 속성에 이벤트핸들러를 추가
 			// xhr객체의 상태를 관리하는 속성
 			// 1) readystate : 전송상태를 관리
 			// 2) status : 응답결과를 관리
