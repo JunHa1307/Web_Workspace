@@ -134,4 +134,15 @@
 		WHERE BOARD_NO = ?
 		  AND B.STATUS = 'Y'
 	</entry>
+	<entry key="insertReply">
+		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER)
+		VALUES (SEQ_RNO.NEXTVAL, ?, ?, ?)
+	</entry>
+	<entry key="selectReply">
+		SELECT REPLY_NO, REPLY_CONTENT,REF_BNO,USER_ID,CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER ON (REPLY_WRITER = USER_NO)
+		WHERE REF_BNO = ?
+			AND R.STATUS ='Y'
+	</entry>
 </properties>

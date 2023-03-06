@@ -113,6 +113,14 @@ public class MemberService {
 		return result;
 	}
 	
+	public Member idCheck(String id) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().idCheck(conn,id);
+		
+		JDBCTemplate.close(conn);
+		return m;
+	}
 	
 	
 	

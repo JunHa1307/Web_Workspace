@@ -12,7 +12,9 @@ import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Category;
+import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.PageInfo;
+import com.kh.member.model.dao.MemberDao;
 
 public class BoardService {
 
@@ -198,6 +200,30 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		ArrayList<Attachment> list = new BoardDao().selectThumbnailAttachment(conn,bno);
+		
+		close(conn);
+		
+		return list;
+	}
+	public int insertReply(Reply r) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertReply(conn,r);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<Reply> selectReply(int bno){
+		Connection conn = getConnection();
+		
+		ArrayList<Reply> list = new BoardDao().selectReply(conn,bno);
 		
 		close(conn);
 		
