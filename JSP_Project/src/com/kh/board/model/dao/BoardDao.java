@@ -561,13 +561,13 @@ public class BoardDao {
 		return result;
 	}
 	
-	public ArrayList<Reply> selectReply(Connection conn, int bno){
+	public ArrayList<Reply> selectReplyList(Connection conn, int bno){
 		ArrayList<Reply> list = new ArrayList<Reply>();
 		
 		PreparedStatement pstmt = null;
 		
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectReply");
+		String sql = prop.getProperty("selectReplyList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

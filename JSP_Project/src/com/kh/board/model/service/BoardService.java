@@ -220,10 +220,10 @@ public class BoardService {
 		return result;
 	}
 	
-	public ArrayList<Reply> selectReply(int bno){
+	public ArrayList<Reply> selectReplyList(int bno){
 		Connection conn = getConnection();
 		
-		ArrayList<Reply> list = new BoardDao().selectReply(conn,bno);
+		ArrayList<Reply> list = new BoardDao().selectReplyList(conn,bno);
 		
 		close(conn);
 		

@@ -1,9 +1,10 @@
-<%@ page import="com.kh.board.model.vo.*" %>
+<%@ page import="com.kh.board.model.vo.* , java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	Board b = (Board) request.getAttribute("b"); 
 	Attachment at = (Attachment) request.getAttribute("at");
+	ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -97,35 +98,26 @@
 							</td>
 							<td><button diabled>댓글등록</button></td>
 						</tr>
-					<%} %>
+					<% } %>
 				</thead>
 				<tbody>
-					<tr>
-						<td>user01</td>
-						<td>테스트 댓글</td>
-						<td>2023-02-20</td>
-					</tr>
-					<tr>
-						<td>user01</td>
-						<td>테스트 댓글</td>
-						<td>2023-02-20</td>
-					</tr>
-					<tr>
-						<td>user01</td>
-						<td>테스트 댓글</td>
-						<td>2023-02-20</td>
-					</tr>
-					<tr>
-						<td>user01</td>
-						<td>테스트 댓글</td>
-						<td>2023-02-20</td>
-					</tr>
+					<% for(Reply r : list){ %>
+						<tr>
+							<td><%= r.getReplyWriter() %></td>
+							<td><%= r.getReplyContent() %></td>
+							<td><%= r.getCreateDate() %></td>
+						</tr>
+					<% } %>
 				</tbody>
 			</table>
 		
 		</div>
 	</div>
 	<script>
+		$(function(){
+			setInterval(selectReplyList, 1000);	
+		});
+		
 		function insertReply(){
 			$.ajax({
 				url : "<%= contextPath%>/rinsert.bo",
@@ -165,7 +157,7 @@
 									"<td>"+i.createDate+"</td>"+
 								"</tr>"
 					}
-					document.querySelector("#reply-area tbody").innerHTML += result;
+					$("#reply-area tbody").html(result);
 				},
 				error : function(){
 					console.log("게시글 목록조회 실패");

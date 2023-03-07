@@ -17,13 +17,13 @@ import com.kh.board.model.vo.Reply;
  * Servlet implementation class AjaxReplySelectController
  */
 @WebServlet("/rlist.bo")
-public class AjaxReplySelectController extends HttpServlet {
+public class AjaxReplyListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxReplySelectController() {
+    public AjaxReplyListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,7 @@ public class AjaxReplySelectController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		ArrayList<Reply> list = new BoardService().selectReply(bno);
+		ArrayList<Reply> list = new BoardService().selectReplyList(bno);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
